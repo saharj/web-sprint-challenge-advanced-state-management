@@ -1,7 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { fetchData } from "./../store/actions/index";
 import "./App.css";
 class App extends Component {
+  constructor(props) {
+    super();
+  }
+  componentDidMount() {
+    this.props.fetchData();
+  }
+
   render() {
+    console.log(this.props);
     return (
       <div className="App">
         <h1>SMURFS! W/Redux</h1>
@@ -13,4 +24,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    smurfs: state.smurfs,
+  };
+};
+
+export default connect(mapStateToProps, { fetchData })(App);
